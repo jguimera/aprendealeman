@@ -439,6 +439,7 @@ function updateActivityLog() {
 function updateProgressDisplay() {
     updateAchievements();
     updateWordsList('all');
+    updateWordCounts();
 }
 
 // Actualizar logros
@@ -497,11 +498,31 @@ function updateWordsList(filter) {
     }).join('');
 }
 
+function updateWordCounts() {
+    const total = wordsDatabase.length;
+    const mastered = wordsDatabase.filter(w => (appState.wordProgress[w.german]?.mastery || 0) >= 80).length;
+    const learning = wordsDatabase.filter(w => {
+        const m = appState.wordProgress[w.german]?.mastery || 0;
+        return m > 0 && m < 80;
+    }).length;
+    const fresh = wordsDatabase.filter(w => (appState.wordProgress[w.german]?.total || 0) === 0).length;
+
+    const allEl = document.getElementById('count-all');
+    const masEl = document.getElementById('count-mastered');
+    const leaEl = document.getElementById('count-learning');
+    const newEl = document.getElementById('count-new');
+    if (allEl) allEl.textContent = total;
+    if (masEl) masEl.textContent = mastered;
+    if (leaEl) leaEl.textContent = learning;
+    if (newEl) newEl.textContent = fresh;
+}
+
 // Filtrar palabras
 function filterWords(filter) {
     document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
     updateWordsList(filter);
+    updateWordCounts();
 }
 
 // Guardar progreso en localStorage
