@@ -657,7 +657,11 @@ function getDefaultProgressData() {
             das: { correct: 0, total: 0 }
         },
         activityLog: [],
-        achievements: achievements.map(a => ({ id: a.id, unlocked: false }))
+        achievements: achievements.map(a => ({ id: a.id, unlocked: false })),
+        // Initialize session stats
+        sessionCorrect: 0,
+        sessionTotal: 0,
+        currentStreak: 0
     };
     // Asegurar estructura de progreso de palabras
     wordsDatabase.forEach(word => {
@@ -684,6 +688,10 @@ function loadProgressForUser(userName) {
             das: { correct: 0, total: 0 }
         };
         appState.activityLog = data.activityLog || [];
+        // Restore session stats to persist across page refreshes
+        appState.sessionCorrect = data.sessionCorrect || 0;
+        appState.sessionTotal = data.sessionTotal || 0;
+        appState.currentStreak = data.currentStreak || 0;
         // Sincronizar logros
         const savedAch = data.achievements || [];
         achievements.forEach(a => {
@@ -705,7 +713,11 @@ function saveProgressForUser(userName) {
         level: appState.level,
         genderStats: appState.genderStats,
         activityLog: appState.activityLog,
-        achievements: achievements.map(a => ({ id: a.id, unlocked: a.unlocked }))
+        achievements: achievements.map(a => ({ id: a.id, unlocked: a.unlocked })),
+        // Save session stats to persist across page refreshes
+        sessionCorrect: appState.sessionCorrect,
+        sessionTotal: appState.sessionTotal,
+        currentStreak: appState.currentStreak
     };
     localStorage.setItem(STORAGE.progressPrefix + userName, JSON.stringify(dataToSave));
 }
