@@ -102,7 +102,10 @@ Estados de palabras y progresión:
 
 ### Instalación
 1. Abre el archivo `index.html` en cualquier navegador web moderno
-2. ¡Ya está listo para usar!
+2. Asegúrate de servir los archivos con un servidor local (para que `words.json` cargue):
+   - Con Python: `python3 -m http.server 5500` y visita `http://localhost:5500`
+   - Con VSCode Live Server o similar
+3. ¡Ya está listo para usar!
 
 ### Práctica
 1. Ve a la pestaña **🎯 Practicar** (activa por defecto)

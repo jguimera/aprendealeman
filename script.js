@@ -1,321 +1,5 @@
-// Base de datos de 300 palabras comunes en alemán apropiadas para niños de 8 años
-const wordsDatabase = [
-    // Animales (Animals) - 50 palabras
-    { german: "Hund", article: "der", spanish: "perro", category: "animales" },
-    { german: "Katze", article: "die", spanish: "gato", category: "animales" },
-    { german: "Pferd", article: "das", spanish: "caballo", category: "animales" },
-    { german: "Vogel", article: "der", spanish: "pájaro", category: "animales" },
-    { german: "Fisch", article: "der", spanish: "pez", category: "animales" },
-    { german: "Kuh", article: "die", spanish: "vaca", category: "animales" },
-    { german: "Schwein", article: "das", spanish: "cerdo", category: "animales" },
-    { german: "Schaf", article: "das", spanish: "oveja", category: "animales" },
-    { german: "Huhn", article: "das", spanish: "gallina", category: "animales" },
-    { german: "Hase", article: "der", spanish: "conejo", category: "animales" },
-    { german: "Maus", article: "die", spanish: "ratón", category: "animales" },
-    { german: "Elefant", article: "der", spanish: "elefante", category: "animales" },
-    { german: "Löwe", article: "der", spanish: "león", category: "animales" },
-    { german: "Tiger", article: "der", spanish: "tigre", category: "animales" },
-    { german: "Bär", article: "der", spanish: "oso", category: "animales" },
-    { german: "Giraffe", article: "die", spanish: "jirafa", category: "animales" },
-    { german: "Affe", article: "der", spanish: "mono", category: "animales" },
-    { german: "Zebra", article: "das", spanish: "cebra", category: "animales" },
-    { german: "Frosch", article: "der", spanish: "rana", category: "animales" },
-    { german: "Schmetterling", article: "der", spanish: "mariposa", category: "animales" },
-    { german: "Biene", article: "die", spanish: "abeja", category: "animales" },
-    { german: "Spinne", article: "die", spanish: "araña", category: "animales" },
-    { german: "Schlange", article: "die", spanish: "serpiente", category: "animales" },
-    { german: "Schildkröte", article: "die", spanish: "tortuga", category: "animales" },
-    { german: "Delfin", article: "der", spanish: "delfín", category: "animales" },
-    { german: "Hai", article: "der", spanish: "tiburón", category: "animales" },
-    { german: "Wal", article: "der", spanish: "ballena", category: "animales" },
-    { german: "Pinguin", article: "der", spanish: "pingüino", category: "animales" },
-    { german: "Eule", article: "die", spanish: "búho", category: "animales" },
-    { german: "Adler", article: "der", spanish: "águila", category: "animales" },
-    { german: "Ente", article: "die", spanish: "pato", category: "animales" },
-    { german: "Gans", article: "die", spanish: "ganso", category: "animales" },
-    { german: "Fuchs", article: "der", spanish: "zorro", category: "animales" },
-    { german: "Wolf", article: "der", spanish: "lobo", category: "animales" },
-    { german: "Reh", article: "das", spanish: "ciervo", category: "animales" },
-    { german: "Eichhörnchen", article: "das", spanish: "ardilla", category: "animales" },
-    { german: "Igel", article: "der", spanish: "erizo", category: "animales" },
-    { german: "Ziege", article: "die", spanish: "cabra", category: "animales" },
-    { german: "Esel", article: "der", spanish: "burro", category: "animales" },
-    { german: "Hahn", article: "der", spanish: "gallo", category: "animales" },
-    { german: "Truthahn", article: "der", spanish: "pavo", category: "animales" },
-    { german: "Krokodil", article: "das", spanish: "cocodrilo", category: "animales" },
-    { german: "Nilpferd", article: "das", spanish: "hipopótamo", category: "animales" },
-    { german: "Nashorn", article: "das", spanish: "rinoceronte", category: "animales" },
-    { german: "Kamel", article: "das", spanish: "camello", category: "animales" },
-    { german: "Känguru", article: "das", spanish: "canguro", category: "animales" },
-    { german: "Koala", article: "der", spanish: "koala", category: "animales" },
-    { german: "Panda", article: "der", spanish: "panda", category: "animales" },
-    { german: "Flamingo", article: "der", spanish: "flamenco", category: "animales" },
-    { german: "Papagei", article: "der", spanish: "loro", category: "animales" },
-
-    // Familia y personas (Family and people) - 30 palabras
-    { german: "Mutter", article: "die", spanish: "madre", category: "familia" },
-    { german: "Vater", article: "der", spanish: "padre", category: "familia" },
-    { german: "Kind", article: "das", spanish: "niño", category: "familia" },
-    { german: "Bruder", article: "der", spanish: "hermano", category: "familia" },
-    { german: "Schwester", article: "die", spanish: "hermana", category: "familia" },
-    { german: "Oma", article: "die", spanish: "abuela", category: "familia" },
-    { german: "Opa", article: "der", spanish: "abuelo", category: "familia" },
-    { german: "Tante", article: "die", spanish: "tía", category: "familia" },
-    { german: "Onkel", article: "der", spanish: "tío", category: "familia" },
-    { german: "Cousin", article: "der", spanish: "primo", category: "familia" },
-    { german: "Cousine", article: "die", spanish: "prima", category: "familia" },
-    { german: "Baby", article: "das", spanish: "bebé", category: "familia" },
-    { german: "Junge", article: "der", spanish: "chico", category: "familia" },
-    { german: "Mädchen", article: "das", spanish: "chica", category: "familia" },
-    { german: "Mann", article: "der", spanish: "hombre", category: "familia" },
-    { german: "Frau", article: "die", spanish: "mujer", category: "familia" },
-    { german: "Freund", article: "der", spanish: "amigo", category: "familia" },
-    { german: "Freundin", article: "die", spanish: "amiga", category: "familia" },
-    { german: "Lehrer", article: "der", spanish: "profesor", category: "familia" },
-    { german: "Lehrerin", article: "die", spanish: "profesora", category: "familia" },
-    { german: "Arzt", article: "der", spanish: "médico", category: "familia" },
-    { german: "Ärztin", article: "die", spanish: "médica", category: "familia" },
-    { german: "Koch", article: "der", spanish: "cocinero", category: "familia" },
-    { german: "Köchin", article: "die", spanish: "cocinera", category: "familia" },
-    { german: "Polizist", article: "der", spanish: "policía (m)", category: "familia" },
-    { german: "Polizistin", article: "die", spanish: "policía (f)", category: "familia" },
-    { german: "Feuerwehrmann", article: "der", spanish: "bombero", category: "familia" },
-    { german: "Pilot", article: "der", spanish: "piloto", category: "familia" },
-    { german: "Sänger", article: "der", spanish: "cantante (m)", category: "familia" },
-    { german: "Sängerin", article: "die", spanish: "cantante (f)", category: "familia" },
-
-    // Casa y objetos (House and objects) - 50 palabras
-    { german: "Haus", article: "das", spanish: "casa", category: "casa" },
-    { german: "Tür", article: "die", spanish: "puerta", category: "casa" },
-    { german: "Fenster", article: "das", spanish: "ventana", category: "casa" },
-    { german: "Zimmer", article: "das", spanish: "habitación", category: "casa" },
-    { german: "Bett", article: "das", spanish: "cama", category: "casa" },
-    { german: "Tisch", article: "der", spanish: "mesa", category: "casa" },
-    { german: "Stuhl", article: "der", spanish: "silla", category: "casa" },
-    { german: "Sofa", article: "das", spanish: "sofá", category: "casa" },
-    { german: "Lampe", article: "die", spanish: "lámpara", category: "casa" },
-    { german: "Küche", article: "die", spanish: "cocina", category: "casa" },
-    { german: "Bad", article: "das", spanish: "baño", category: "casa" },
-    { german: "Garten", article: "der", spanish: "jardín", category: "casa" },
-    { german: "Dach", article: "das", spanish: "techo", category: "casa" },
-    { german: "Wand", article: "die", spanish: "pared", category: "casa" },
-    { german: "Boden", article: "der", spanish: "suelo", category: "casa" },
-    { german: "Treppe", article: "die", spanish: "escalera", category: "casa" },
-    { german: "Schrank", article: "der", spanish: "armario", category: "casa" },
-    { german: "Regal", article: "das", spanish: "estantería", category: "casa" },
-    { german: "Spiegel", article: "der", spanish: "espejo", category: "casa" },
-    { german: "Uhr", article: "die", spanish: "reloj", category: "casa" },
-    { german: "Bild", article: "das", spanish: "cuadro", category: "casa" },
-    { german: "Teppich", article: "der", spanish: "alfombra", category: "casa" },
-    { german: "Vorhang", article: "der", spanish: "cortina", category: "casa" },
-    { german: "Kissen", article: "das", spanish: "cojín", category: "casa" },
-    { german: "Decke", article: "die", spanish: "manta", category: "casa" },
-    { german: "Fernseher", article: "der", spanish: "televisión", category: "casa" },
-    { german: "Computer", article: "der", spanish: "computadora", category: "casa" },
-    { german: "Telefon", article: "das", spanish: "teléfono", category: "casa" },
-    { german: "Schlüssel", article: "der", spanish: "llave", category: "casa" },
-    { german: "Buch", article: "das", spanish: "libro", category: "casa" },
-    { german: "Stift", article: "der", spanish: "bolígrafo", category: "casa" },
-    { german: "Heft", article: "das", spanish: "cuaderno", category: "casa" },
-    { german: "Papier", article: "das", spanish: "papel", category: "casa" },
-    { german: "Schere", article: "die", spanish: "tijeras", category: "casa" },
-    { german: "Kleber", article: "der", spanish: "pegamento", category: "casa" },
-    { german: "Tasche", article: "die", spanish: "bolso", category: "casa" },
-    { german: "Korb", article: "der", spanish: "cesta", category: "casa" },
-    { german: "Eimer", article: "der", spanish: "cubo", category: "casa" },
-    { german: "Besen", article: "der", spanish: "escoba", category: "casa" },
-    { german: "Handtuch", article: "das", spanish: "toalla", category: "casa" },
-    { german: "Seife", article: "die", spanish: "jabón", category: "casa" },
-    { german: "Zahnbürste", article: "die", spanish: "cepillo de dientes", category: "casa" },
-    { german: "Kamm", article: "der", spanish: "peine", category: "casa" },
-    { german: "Bürste", article: "die", spanish: "cepillo", category: "casa" },
-    { german: "Spiegel", article: "der", spanish: "espejo", category: "casa" },
-    { german: "Klo", article: "das", spanish: "váter", category: "casa" },
-    { german: "Dusche", article: "die", spanish: "ducha", category: "casa" },
-    { german: "Badewanne", article: "die", spanish: "bañera", category: "casa" },
-    { german: "Waschbecken", article: "das", spanish: "lavabo", category: "casa" },
-    { german: "Kühlschrank", article: "der", spanish: "refrigerador", category: "casa" },
-
-    // Comida (Food) - 40 palabras
-    { german: "Brot", article: "das", spanish: "pan", category: "comida" },
-    { german: "Butter", article: "die", spanish: "mantequilla", category: "comida" },
-    { german: "Käse", article: "der", spanish: "queso", category: "comida" },
-    { german: "Milch", article: "die", spanish: "leche", category: "comida" },
-    { german: "Ei", article: "das", spanish: "huevo", category: "comida" },
-    { german: "Fleisch", article: "das", spanish: "carne", category: "comida" },
-    { german: "Wurst", article: "die", spanish: "salchicha", category: "comida" },
-    { german: "Apfel", article: "der", spanish: "manzana", category: "comida" },
-    { german: "Banane", article: "die", spanish: "plátano", category: "comida" },
-    { german: "Orange", article: "die", spanish: "naranja", category: "comida" },
-    { german: "Erdbeere", article: "die", spanish: "fresa", category: "comida" },
-    { german: "Kirsche", article: "die", spanish: "cereza", category: "comida" },
-    { german: "Traube", article: "die", spanish: "uva", category: "comida" },
-    { german: "Birne", article: "die", spanish: "pera", category: "comida" },
-    { german: "Pfirsich", article: "der", spanish: "melocotón", category: "comida" },
-    { german: "Wassermelone", article: "die", spanish: "sandía", category: "comida" },
-    { german: "Ananas", article: "die", spanish: "piña", category: "comida" },
-    { german: "Karotte", article: "die", spanish: "zanahoria", category: "comida" },
-    { german: "Kartoffel", article: "die", spanish: "patata", category: "comida" },
-    { german: "Tomate", article: "die", spanish: "tomate", category: "comida" },
-    { german: "Gurke", article: "die", spanish: "pepino", category: "comida" },
-    { german: "Salat", article: "der", spanish: "ensalada", category: "comida" },
-    { german: "Zwiebel", article: "die", spanish: "cebolla", category: "comida" },
-    { german: "Reis", article: "der", spanish: "arroz", category: "comida" },
-    { german: "Nudel", article: "die", spanish: "pasta", category: "comida" },
-    { german: "Suppe", article: "die", spanish: "sopa", category: "comida" },
-    { german: "Pizza", article: "die", spanish: "pizza", category: "comida" },
-    { german: "Kuchen", article: "der", spanish: "pastel", category: "comida" },
-    { german: "Keks", article: "der", spanish: "galleta", category: "comida" },
-    { german: "Schokolade", article: "die", spanish: "chocolate", category: "comida" },
-    { german: "Eis", article: "das", spanish: "helado", category: "comida" },
-    { german: "Bonbon", article: "das", spanish: "caramelo", category: "comida" },
-    { german: "Honig", article: "der", spanish: "miel", category: "comida" },
-    { german: "Marmelade", article: "die", spanish: "mermelada", category: "comida" },
-    { german: "Zucker", article: "der", spanish: "azúcar", category: "comida" },
-    { german: "Salz", article: "das", spanish: "sal", category: "comida" },
-    { german: "Wasser", article: "das", spanish: "agua", category: "comida" },
-    { german: "Saft", article: "der", spanish: "zumo", category: "comida" },
-    { german: "Tee", article: "der", spanish: "té", category: "comida" },
-    { german: "Kaffee", article: "der", spanish: "café", category: "comida" },
-
-    // Ropa (Clothing) - 25 palabras
-    { german: "Kleid", article: "das", spanish: "vestido", category: "ropa" },
-    { german: "Hose", article: "die", spanish: "pantalón", category: "ropa" },
-    { german: "Rock", article: "der", spanish: "falda", category: "ropa" },
-    { german: "Hemd", article: "das", spanish: "camisa", category: "ropa" },
-    { german: "T-Shirt", article: "das", spanish: "camiseta", category: "ropa" },
-    { german: "Pullover", article: "der", spanish: "jersey", category: "ropa" },
-    { german: "Jacke", article: "die", spanish: "chaqueta", category: "ropa" },
-    { german: "Mantel", article: "der", spanish: "abrigo", category: "ropa" },
-    { german: "Schal", article: "der", spanish: "bufanda", category: "ropa" },
-    { german: "Mütze", article: "die", spanish: "gorro", category: "ropa" },
-    { german: "Hut", article: "der", spanish: "sombrero", category: "ropa" },
-    { german: "Handschuh", article: "der", spanish: "guante", category: "ropa" },
-    { german: "Socke", article: "die", spanish: "calcetín", category: "ropa" },
-    { german: "Schuh", article: "der", spanish: "zapato", category: "ropa" },
-    { german: "Stiefel", article: "der", spanish: "bota", category: "ropa" },
-	{ german: "Sandale", article: "die", spanish: "sandalia", category: "ropa" },
-    { german: "Gürtel", article: "der", spanish: "cinturón", category: "ropa" },
-    { german: "Krawatte", article: "die", spanish: "corbata", category: "ropa" },
-    { german: "Brille", article: "die", spanish: "gafas", category: "ropa" },
-    { german: "Uhr", article: "die", spanish: "reloj", category: "ropa" },
-    { german: "Ring", article: "der", spanish: "anillo", category: "ropa" },
-    { german: "Kette", article: "die", spanish: "collar", category: "ropa" },
-    { german: "Ohrring", article: "der", spanish: "pendiente", category: "ropa" },
-    { german: "Tasche", article: "die", spanish: "bolso", category: "ropa" },
-    { german: "Rucksack", article: "der", spanish: "mochila", category: "ropa" },
-
-    // Naturaleza y clima (Nature and weather) - 30 palabras
-    { german: "Sonne", article: "die", spanish: "sol", category: "naturaleza" },
-    { german: "Mond", article: "der", spanish: "luna", category: "naturaleza" },
-    { german: "Stern", article: "der", spanish: "estrella", category: "naturaleza" },
-    { german: "Himmel", article: "der", spanish: "cielo", category: "naturaleza" },
-    { german: "Wolke", article: "die", spanish: "nube", category: "naturaleza" },
-    { german: "Regen", article: "der", spanish: "lluvia", category: "naturaleza" },
-    { german: "Schnee", article: "der", spanish: "nieve", category: "naturaleza" },
-    { german: "Wind", article: "der", spanish: "viento", category: "naturaleza" },
-    { german: "Gewitter", article: "das", spanish: "tormenta", category: "naturaleza" },
-    { german: "Blitz", article: "der", spanish: "relámpago", category: "naturaleza" },
-    { german: "Donner", article: "der", spanish: "trueno", category: "naturaleza" },
-    { german: "Regenbogen", article: "der", spanish: "arco iris", category: "naturaleza" },
-    { german: "Baum", article: "der", spanish: "árbol", category: "naturaleza" },
-    { german: "Blume", article: "die", spanish: "flor", category: "naturaleza" },
-    { german: "Gras", article: "das", spanish: "hierba", category: "naturaleza" },
-    { german: "Blatt", article: "das", spanish: "hoja", category: "naturaleza" },
-    { german: "Ast", article: "der", spanish: "rama", category: "naturaleza" },
-    { german: "Wurzel", article: "die", spanish: "raíz", category: "naturaleza" },
-    { german: "Berg", article: "der", spanish: "montaña", category: "naturaleza" },
-    { german: "Tal", article: "das", spanish: "valle", category: "naturaleza" },
-    { german: "Fluss", article: "der", spanish: "río", category: "naturaleza" },
-    { german: "See", article: "der", spanish: "lago", category: "naturaleza" },
-    { german: "Meer", article: "das", spanish: "mar", category: "naturaleza" },
-    { german: "Strand", article: "der", spanish: "playa", category: "naturaleza" },
-    { german: "Welle", article: "die", spanish: "ola", category: "naturaleza" },
-    { german: "Sand", article: "der", spanish: "arena", category: "naturaleza" },
-    { german: "Stein", article: "der", spanish: "piedra", category: "naturaleza" },
-    { german: "Fels", article: "der", spanish: "roca", category: "naturaleza" },
-    { german: "Wald", article: "der", spanish: "bosque", category: "naturaleza" },
-    { german: "Wiese", article: "die", spanish: "prado", category: "naturaleza" },
-
-    // Escuela y juguetes (School and toys) - 35 palabras
-    { german: "Schule", article: "die", spanish: "escuela", category: "escuela" },
-    { german: "Klasse", article: "die", spanish: "clase", category: "escuela" },
-    { german: "Tafel", article: "die", spanish: "pizarra", category: "escuela" },
-    { german: "Kreide", article: "die", spanish: "tiza", category: "escuela" },
-    { german: "Hausaufgabe", article: "die", spanish: "deberes", category: "escuela" },
-    { german: "Prüfung", article: "die", spanish: "examen", category: "escuela" },
-    { german: "Note", article: "die", spanish: "nota", category: "escuela" },
-    { german: "Zeugnis", article: "das", spanish: "boletín", category: "escuela" },
-    { german: "Pause", article: "die", spanish: "recreo", category: "escuela" },
-    { german: "Spielplatz", article: "der", spanish: "patio", category: "escuela" },
-    { german: "Ball", article: "der", spanish: "pelota", category: "escuela" },
-    { german: "Puppe", article: "die", spanish: "muñeca", category: "escuela" },
-    { german: "Auto", article: "das", spanish: "coche", category: "escuela" },
-    { german: "Zug", article: "der", spanish: "tren", category: "escuela" },
-    { german: "Flugzeug", article: "das", spanish: "avión", category: "escuela" },
-    { german: "Schiff", article: "das", spanish: "barco", category: "escuela" },
-    { german: "Fahrrad", article: "das", spanish: "bicicleta", category: "escuela" },
-    { german: "Roller", article: "der", spanish: "patinete", category: "escuela" },
-    { german: "Drachen", article: "der", spanish: "cometa", category: "escuela" },
-    { german: "Puzzle", article: "das", spanish: "puzzle", category: "escuela" },
-    { german: "Spiel", article: "das", spanish: "juego", category: "escuela" },
-    { german: "Karte", article: "die", spanish: "carta", category: "escuela" },
-    { german: "Würfel", article: "der", spanish: "dado", category: "escuela" },
-    { german: "Baustein", article: "der", spanish: "bloque", category: "escuela" },
-    { german: "Malkasten", article: "der", spanish: "caja de pinturas", category: "escuela" },
-    { german: "Pinsel", article: "der", spanish: "pincel", category: "escuela" },
-    { german: "Farbe", article: "die", spanish: "color", category: "escuela" },
-    { german: "Musik", article: "die", spanish: "música", category: "escuela" },
-    { german: "Lied", article: "das", spanish: "canción", category: "escuela" },
-    { german: "Instrument", article: "das", spanish: "instrumento", category: "escuela" },
-    { german: "Gitarre", article: "die", spanish: "guitarra", category: "escuela" },
-    { german: "Klavier", article: "das", spanish: "piano", category: "escuela" },
-    { german: "Trommel", article: "die", spanish: "tambor", category: "escuela" },
-    { german: "Flöte", article: "die", spanish: "flauta", category: "escuela" },
-    { german: "Geige", article: "die", spanish: "violín", category: "escuela" },
-
-    // Colores, números y tiempo (Colors, numbers and time) - 40 palabras
-    { german: "Farbe", article: "die", spanish: "color", category: "varios" },
-    { german: "Tag", article: "der", spanish: "día", category: "varios" },
-    { german: "Nacht", article: "die", spanish: "noche", category: "varios" },
-    { german: "Morgen", article: "der", spanish: "mañana", category: "varios" },
-    { german: "Mittag", article: "der", spanish: "mediodía", category: "varios" },
-    { german: "Abend", article: "der", spanish: "tarde", category: "varios" },
-    { german: "Woche", article: "die", spanish: "semana", category: "varios" },
-    { german: "Monat", article: "der", spanish: "mes", category: "varios" },
-    { german: "Jahr", article: "das", spanish: "año", category: "varios" },
-    { german: "Stunde", article: "die", spanish: "hora", category: "varios" },
-    { german: "Minute", article: "die", spanish: "minuto", category: "varios" },
-    { german: "Sekunde", article: "die", spanish: "segundo", category: "varios" },
-    { german: "Frühling", article: "der", spanish: "primavera", category: "varios" },
-    { german: "Sommer", article: "der", spanish: "verano", category: "varios" },
-    { german: "Herbst", article: "der", spanish: "otoño", category: "varios" },
-    { german: "Winter", article: "der", spanish: "invierno", category: "varios" },
-    { german: "Geburtstag", article: "der", spanish: "cumpleaños", category: "varios" },
-    { german: "Fest", article: "das", spanish: "fiesta", category: "varios" },
-    { german: "Geschenk", article: "das", spanish: "regalo", category: "varios" },
-    { german: "Party", article: "die", spanish: "fiesta", category: "varios" },
-    { german: "Kerze", article: "die", spanish: "vela", category: "varios" },
-    { german: "Kuchen", article: "der", spanish: "pastel", category: "varios" },
-    { german: "Ballon", article: "der", spanish: "globo", category: "varios" },
-    { german: "Stadt", article: "die", spanish: "ciudad", category: "varios" },
-    { german: "Dorf", article: "das", spanish: "pueblo", category: "varios" },
-    { german: "Straße", article: "die", spanish: "calle", category: "varios" },
-    { german: "Weg", article: "der", spanish: "camino", category: "varios" },
-    { german: "Brücke", article: "die", spanish: "puente", category: "varios" },
-    { german: "Turm", article: "der", spanish: "torre", category: "varios" },
-    { german: "Kirche", article: "die", spanish: "iglesia", category: "varios" },
-    { german: "Laden", article: "der", spanish: "tienda", category: "varios" },
-    { german: "Markt", article: "der", spanish: "mercado", category: "varios" },
-    { german: "Park", article: "der", spanish: "parque", category: "varios" },
-    { german: "Zoo", article: "der", spanish: "zoo", category: "varios" },
-    { german: "Kino", article: "das", spanish: "cine", category: "varios" },
-    { german: "Theater", article: "das", spanish: "teatro", category: "varios" },
-    { german: "Museum", article: "das", spanish: "museo", category: "varios" },
-    { german: "Bibliothek", article: "die", spanish: "biblioteca", category: "varios" },
-    { german: "Krankenhaus", article: "das", spanish: "hospital", category: "varios" },
-    { german: "Restaurant", article: "das", spanish: "restaurante", category: "varios" }
-];
+// Catálogo de palabras se carga externamente desde words.json
+let wordsDatabase = [];
 
 // Estado global de la aplicación
 let appState = {
@@ -360,10 +44,22 @@ let currentUser = null;
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', () => {
-    loadUsersAndInit();
-    setupEventListeners();
-    loadNewWord();
-    updateUI();
+    fetch('words.json')
+        .then(r => r.json())
+        .then(data => {
+            wordsDatabase = Array.isArray(data) ? data : (data.words || []);
+            loadUsersAndInit();
+            setupEventListeners();
+            loadNewWord();
+            updateUI();
+        })
+        .catch(err => {
+            console.error('Error cargando words.json', err);
+            // Fallback por si falla: continuar con lista vacía
+            loadUsersAndInit();
+            setupEventListeners();
+            updateUI();
+        });
 });
 
 // Configurar event listeners
@@ -401,28 +97,7 @@ function setupEventListeners() {
         resetUserBtn.addEventListener('click', () => resetCurrentUserData());
     }
 
-    // Ayuda (modal)
-    const helpBtn = document.getElementById('help-btn');
-    const helpModal = document.getElementById('help-modal');
-    const helpClose = document.getElementById('help-close');
-    const helpOk = document.getElementById('help-ok');
-    const helpBackdrop = document.getElementById('help-backdrop');
-
-    const openHelp = () => {
-        if (!helpModal) return;
-        helpModal.classList.remove('hidden');
-        helpModal.setAttribute('aria-hidden', 'false');
-    };
-    const closeHelp = () => {
-        if (!helpModal) return;
-        helpModal.classList.add('hidden');
-        helpModal.setAttribute('aria-hidden', 'true');
-    };
-
-    if (helpBtn) helpBtn.addEventListener('click', openHelp);
-    if (helpClose) helpClose.addEventListener('click', closeHelp);
-    if (helpOk) helpOk.addEventListener('click', closeHelp);
-    if (helpBackdrop) helpBackdrop.addEventListener('click', closeHelp);
+    // Modal de ayuda eliminado (convertido en pestaña)
 
     // Atajos de teclado: 1=der, 2=die, 3=das
     document.addEventListener('keydown', (e) => {
@@ -502,6 +177,8 @@ function loadNewWord() {
     
     document.getElementById('current-word').textContent = appState.currentWord.german;
     document.getElementById('current-translation').textContent = `(${appState.currentWord.spanish})`;
+    const iconSpan = document.getElementById('word-icon');
+    if (iconSpan) iconSpan.textContent = getIconForCategory(appState.currentWord.category);
     
     // Reiniciar botones
     document.querySelectorAll('.gender-btn').forEach(btn => {
@@ -511,6 +188,20 @@ function loadNewWord() {
     // Ocultar feedback
     const feedback = document.getElementById('feedback');
     feedback.classList.remove('show', 'success', 'error');
+}
+
+function getIconForCategory(category) {
+    const map = {
+        animales: '🐾',
+        familia: '👨‍👩‍👧',
+        casa: '🏠',
+        comida: '🍎',
+        ropa: '👕',
+        naturaleza: '🌳',
+        escuela: '🎒',
+        varios: '⭐'
+    };
+    return map[category] || '⭐';
 }
 
 // Verificar respuesta

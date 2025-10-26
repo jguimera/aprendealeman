@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Der Die Das</title>
+        <link rel="icon" type="image/svg+xml" href="favicon.svg">
+        <link rel="alternate icon" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,7 +29,7 @@
             <button class="nav-btn active" data-tab="practice">🎯 Practicar</button>
             <button class="nav-btn" data-tab="stats">📊 Estadísticas</button>
             <button class="nav-btn" data-tab="progress">🏆 Progreso</button>
-            <button class="nav-btn" id="help-btn" type="button">❓ Ayuda</button>
+            <button class="nav-btn" data-tab="help">❓ Ayuda</button>
         </nav>
 
         <!-- Sección de Práctica -->
@@ -43,7 +45,10 @@
 
             <div class="quiz-card">
                 <div class="word-display">
-                    <h2 id="current-word">Haus</h2>
+                    <div class="word-row">
+                        <span id="word-icon" class="word-icon" aria-hidden="true">🏠</span>
+                        <h2 id="current-word">Haus</h2>
+                    </div>
                     <p class="word-translation" id="current-translation">(casa)</p>
                 </div>
 
@@ -169,47 +174,50 @@
         </section>
     </div>
 
-    <!-- Modal de Ayuda -->
-    <div id="help-modal" class="modal hidden" aria-hidden="true" role="dialog" aria-labelledby="help-title">
-        <div class="modal-content">
-            <button class="modal-close" id="help-close" aria-label="Cerrar">×</button>
-            <h2 id="help-title">Cómo jugar</h2>
-            <div class="modal-body">
-                <p><strong>Objetivo:</strong> Aprende a elegir el artículo correcto para cada palabra en alemán: <em>der</em> (masculino), <em>die</em> (femenino) o <em>das</em> (neutro).</p>
-                <ul>
-                    <li>Lee la palabra alemana y su traducción al español.</li>
-                    <li>Selecciona el artículo correcto: <strong>der</strong>, <strong>die</strong> o <strong>das</strong>.</li>
-                    <li>Si aciertas, verás un mensaje de éxito y pasarás a la siguiente palabra.</li>
-                    <li>Si fallas, se mostrará la opción correcta y tendrás más tiempo para revisarla.</li>
-                </ul>
-                <h3>Cómo cambian los estados de las palabras</h3>
-                <ul>
-                    <li><strong>Nueva</strong>: aún no has practicado la palabra.</li>
-                    <li><strong>Aprendiendo</strong>: has practicado la palabra; su maestría sube con cada acierto.</li>
-                    <li><strong>Dominada</strong>: alcanza ≥80% de maestría (aciertos/total y consistencia).</li>
-                    <li>Las palabras nuevas/difíciles salen más a menudo; las dominadas aparecen de vez en cuando.</li>
-                </ul>
-                <h3>Sistema adaptativo</h3>
-                <ul>
-                    <li>Las palabras nuevas o difíciles aparecen más a menudo.</li>
-                    <li>Al mejorar, aparecen con menos frecuencia.</li>
-                    <li>Tu barra de progreso ahora refleja el porcentaje de aciertos de la sesión.</li>
-                </ul>
-                <h3>Progreso y usuarios</h3>
-                <ul>
-                    <li>Todo tu progreso se guarda automáticamente.</li>
-                    <li>Puedes crear y cambiar de usuario en la parte superior.</li>
-                    <li>Puedes reiniciar el progreso de un usuario con el botón “Reiniciar”.</li>
-                    <li>Atajos de teclado: 1 = der, 2 = die, 3 = das.</li>
-                </ul>
-                <p>¡Diviértete y aprende! 🇩🇪✨</p>
-            </div>
-            <div class="modal-actions">
-                <button class="modal-ok" id="help-ok">Entendido</button>
-            </div>
+    <!-- Sección de Ayuda -->
+    <section id="help" class="tab-content">
+        <h2>❓ Ayuda</h2>
+        <div class="gender-breakdown">
+            <h3>Cómo jugar</h3>
+            <p><strong>Objetivo:</strong> Aprende a elegir el artículo correcto para cada palabra en alemán: <em>der</em> (masculino), <em>die</em> (femenino) o <em>das</em> (neutro).</p>
+            <ul>
+                <li>Lee la palabra alemana y su traducción al español.</li>
+                <li>Selecciona el artículo correcto: <strong>der</strong>, <strong>die</strong> o <strong>das</strong>.</li>
+                <li>Si aciertas, verás un mensaje de éxito y pasarás a la siguiente palabra.</li>
+                <li>Si fallas, se mostrará la opción correcta y tendrás más tiempo para revisarla.</li>
+            </ul>
         </div>
-        <div class="modal-backdrop" id="help-backdrop"></div>
-    </div>
+
+        <div class="gender-breakdown">
+            <h3>Cómo cambian los estados de las palabras</h3>
+            <ul>
+                <li><strong>Nueva</strong>: aún no has practicado la palabra.</li>
+                <li><strong>Aprendiendo</strong>: has practicado la palabra; su maestría sube con cada acierto.</li>
+                <li><strong>Dominada</strong>: alcanza ≥80% de maestría (aciertos/total y consistencia).</li>
+                <li>Las palabras nuevas/difíciles salen más a menudo; las dominadas aparecen de vez en cuando.</li>
+            </ul>
+        </div>
+
+        <div class="gender-breakdown">
+            <h3>Sistema adaptativo</h3>
+            <ul>
+                <li>Las palabras nuevas o difíciles aparecen más a menudo.</li>
+                <li>Al mejorar, aparecen con menos frecuencia.</li>
+                <li>La barra de progreso refleja el porcentaje de aciertos de la sesión.</li>
+            </ul>
+        </div>
+
+        <div class="gender-breakdown">
+            <h3>Progreso y usuarios</h3>
+            <ul>
+                <li>Todo tu progreso se guarda automáticamente.</li>
+                <li>Puedes crear y cambiar de usuario en la parte superior.</li>
+                <li>Puedes reiniciar el progreso de un usuario con el botón “Reiniciar”.</li>
+                <li>Atajos de teclado: 1 = der, 2 = die, 3 = das.</li>
+            </ul>
+            <p>¡Diviértete y aprende! 🇩🇪✨</p>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
