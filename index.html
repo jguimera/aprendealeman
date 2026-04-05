@@ -27,6 +27,7 @@
 
         <nav class="nav-tabs">
             <button class="nav-btn active" data-tab="practice">🎯 Practicar</button>
+            <button class="nav-btn" data-tab="vocabulary">📚 Vocabulario</button>
             <button class="nav-btn" data-tab="stats">📊 Estadísticas</button>
             <button class="nav-btn" data-tab="progress">🏆 Progreso</button>
             <button class="nav-btn" data-tab="help">❓ Ayuda</button>
@@ -84,6 +85,23 @@
                     <span class="stat-label">🎯 Precisión</span>
                 </div>
             </div>
+        </section>
+
+        <!-- Sección de Vocabulario -->
+        <section id="vocabulary" class="tab-content">
+            <h2>📚 Vocabulario por Temas</h2>
+            <p class="vocab-subtitle">Aprende palabras en alemán, escucha su pronunciación y memoriza su imagen</p>
+
+            <div class="vocab-topics">
+                <button class="topic-btn active" data-topic="animales">🐾 Animales</button>
+                <button class="topic-btn" data-topic="naturaleza">🌳 Naturaleza</button>
+                <button class="topic-btn" data-topic="deportes">⚽ Deportes</button>
+                <button class="topic-btn" data-topic="familia">👨‍👩‍👧 Familia</button>
+                <button class="topic-btn" data-topic="comida">🍎 Comida</button>
+                <button class="topic-btn" data-topic="casa">🏠 Casa</button>
+            </div>
+
+            <div class="vocab-grid" id="vocab-grid"></div>
         </section>
 
         <!-- Sección de Estadísticas -->
