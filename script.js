@@ -32,6 +32,115 @@ const achievements = [
     { id: 'all_genders', icon: '🌟', name: 'Trilingüe', desc: 'Practica los 3 géneros', unlocked: false }
 ];
 
+// Mapa de emojis por palabra alemana para la sección de vocabulario
+const wordEmojiMap = {
+    // Animales
+    'Hund': '🐕', 'Katze': '🐈', 'Pferd': '🐎', 'Vogel': '🐦', 'Fisch': '🐟',
+    'Kuh': '🐄', 'Schwein': '🐷', 'Schaf': '🐑', 'Huhn': '🐔', 'Hase': '🐇',
+    'Maus': '🐭', 'Elefant': '🐘', 'Löwe': '🦁', 'Tiger': '🐯', 'Bär': '🐻',
+    'Giraffe': '🦒', 'Affe': '🐒', 'Zebra': '🦓', 'Frosch': '🐸',
+    'Schmetterling': '🦋', 'Biene': '🐝', 'Spinne': '🕷️', 'Schlange': '🐍',
+    'Schildkröte': '🐢', 'Delfin': '🐬', 'Hai': '🦈', 'Wal': '🐳',
+    'Pinguin': '🐧', 'Eule': '🦉', 'Adler': '🦅', 'Ente': '🦆', 'Gans': '🦢',
+    'Fuchs': '🦊', 'Wolf': '🐺', 'Reh': '🦌', 'Eichhörnchen': '🐿️',
+    'Igel': '🦔', 'Ziege': '🐐', 'Esel': '🐴', 'Hahn': '🐓', 'Truthahn': '🦃',
+    'Krokodil': '🐊', 'Nilpferd': '🦛', 'Nashorn': '🦏', 'Kamel': '🐪',
+    'Känguru': '🦘', 'Koala': '🐨', 'Panda': '🐼', 'Flamingo': '🦩', 'Papagei': '🦜',
+    // Naturaleza
+    'Sonne': '☀️', 'Mond': '🌙', 'Stern': '⭐', 'Wolke': '☁️', 'Regen': '🌧️',
+    'Schnee': '❄️', 'Wind': '🌬️', 'Berg': '⛰️', 'See': '🏞️', 'Meer': '🌊',
+    'Fluss': '🏞️', 'Baum': '🌳', 'Blume': '🌸', 'Gras': '🌿', 'Blatt': '🍃',
+    'Wald': '🌲', 'Wiese': '🌾', 'Regenbogen': '🌈', 'Feuer': '🔥', 'Erde': '🌍',
+    'Himmel': '🌌', 'Blitz': '⚡', 'Sturm': '🌩️', 'Eis': '🧊',
+    'Strand': '🏖️', 'Welle': '🌊', 'Sand': '🏜️', 'Stein': '🪨', 'Fels': '🪨',
+    // Deportes
+    'Fußball': '⚽', 'Basketball': '🏀', 'Tennis': '🎾', 'Schwimmen': '🏊',
+    'Laufen': '🏃', 'Ski': '⛷️', 'Volleyball': '🏐', 'Golf': '⛳',
+    'Boxen': '🥊', 'Turnen': '🤸', 'Radfahren': '🚴', 'Reiten': '🐎',
+    'Tanzen': '💃', 'Judo': '🥋', 'Karate': '🥋', 'Handball': '🤾',
+    'Hockey': '🏑', 'Surfen': '🏄', 'Klettern': '🧗', 'Wandern': '🥾',
+    // Familia
+    'Mutter': '👩', 'Vater': '👨', 'Kind': '🧒', 'Bruder': '👦', 'Schwester': '👧',
+    'Oma': '👵', 'Opa': '👴', 'Tante': '👩', 'Onkel': '👨', 'Baby': '👶',
+    'Junge': '👦', 'Mädchen': '👧', 'Mann': '🧔', 'Frau': '👩',
+    'Freund': '🤝', 'Freundin': '🤝', 'Lehrer': '👨‍🏫', 'Lehrerin': '👩‍🏫',
+    'Arzt': '👨‍⚕️', 'Ärztin': '👩‍⚕️', 'Koch': '👨‍🍳', 'Köchin': '👩‍🍳',
+    'Polizist': '👮', 'Polizistin': '👮', 'Feuerwehrmann': '🧑‍🚒',
+    'Pilot': '✈️', 'Sänger': '🎤', 'Sängerin': '🎤',
+    // Comida
+    'Brot': '🍞', 'Käse': '🧀', 'Milch': '🥛', 'Ei': '🥚', 'Butter': '🧈',
+    'Apfel': '🍎', 'Banane': '🍌', 'Orange': '🍊', 'Erdbeere': '🍓',
+    'Kirsche': '🍒', 'Traube': '🍇', 'Zitrone': '🍋', 'Ananas': '🍍',
+    'Wassermelone': '🍉', 'Karotte': '🥕', 'Tomate': '🍅', 'Kartoffel': '🥔',
+    'Zwiebel': '🧅', 'Knoblauch': '🧄', 'Pilz': '🍄', 'Salat': '🥗',
+    'Suppe': '🍲', 'Fleisch': '🥩', 'Wurst': '🌭', 'Fisch (Essen)': '🐟',
+    'Reis': '🍚', 'Nudeln': '🍝', 'Pizza': '🍕', 'Kuchen': '🎂',
+    'Eis (Speise)': '🍦', 'Schokolade': '🍫', 'Bonbon': '🍬', 'Keks': '🍪',
+    'Wasser': '💧', 'Saft': '🧃', 'Tee': '🍵', 'Kaffee': '☕',
+    // Casa
+    'Haus': '🏠', 'Tür': '🚪', 'Fenster': '🪟', 'Zimmer': '🛏️', 'Bett': '🛏️',
+    'Tisch': '🪑', 'Stuhl': '🪑', 'Sofa': '🛋️', 'Lampe': '💡', 'Küche': '🍳',
+    'Bad': '🛁', 'Garten': '🌿', 'Dach': '🏠', 'Wand': '🧱', 'Boden': '🪵',
+    'Treppe': '🪜', 'Schrank': '🗄️', 'Regal': '📚', 'Spiegel': '🪞',
+    'Waschmaschine': '🫧', 'Kühlschrank': '🧊', 'Ofen': '🔥', 'Herd': '🍳'
+};
+
+function getWordEmoji(german, category) {
+    return wordEmojiMap[german] || getIconForCategory(category);
+}
+
+// Pronunciar una palabra en alemán usando la API de síntesis de voz
+function speakGerman(word, btnEl) {
+    if (!('speechSynthesis' in window)) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = 'de-DE';
+    utterance.rate = 0.8;
+    if (btnEl) {
+        btnEl.classList.add('speaking');
+        utterance.onend = () => btnEl.classList.remove('speaking');
+        utterance.onerror = () => btnEl.classList.remove('speaking');
+    }
+    speechSynthesis.speak(utterance);
+}
+
+// Renderizar las tarjetas de vocabulario para un tema
+function renderVocabulary(category) {
+    const grid = document.getElementById('vocab-grid');
+    if (!grid) return;
+    const words = wordsDatabase.filter(w => w.category === category);
+
+    if (words.length === 0) {
+        grid.innerHTML = '<p class="vocab-empty">No hay palabras en este tema todavía.</p>';
+        return;
+    }
+
+    grid.innerHTML = words.map(word => {
+        const emoji = getWordEmoji(word.german, word.category);
+        return `
+            <div class="vocab-card">
+                <div class="vocab-emoji" aria-hidden="true">${emoji}</div>
+                <span class="vocab-article-badge ${word.article}">${word.article}</span>
+                <div class="vocab-german">${word.german}</div>
+                <div class="vocab-spanish">${word.spanish}</div>
+                <button class="vocab-audio-btn" data-german="${word.german}" title="Escuchar pronunciación">🔊</button>
+            </div>
+        `;
+    }).join('');
+
+    grid.querySelectorAll('.vocab-audio-btn').forEach(btn => {
+        btn.addEventListener('click', () => speakGerman(btn.dataset.german, btn));
+    });
+}
+
+// Cambiar tema de vocabulario
+function switchVocabTopic(topic) {
+    document.querySelectorAll('.topic-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.querySelector(`.topic-btn[data-topic="${topic}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    renderVocabulary(topic);
+}
+
 // Claves de almacenamiento y estado multiusuario
 const STORAGE = {
     users: 'germanLearningUsers',
@@ -81,6 +190,11 @@ function setupEventListeners() {
         btn.addEventListener('click', () => filterWords(btn.dataset.filter));
     });
 
+    // Botones de tema de vocabulario
+    document.querySelectorAll('.topic-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchVocabTopic(btn.dataset.topic));
+    });
+
     // Controles de usuario
     const userSelect = document.getElementById('user-select');
     const addUserBtn = document.getElementById('add-user-btn');
@@ -126,6 +240,10 @@ function switchTab(tabName) {
         updateStatsDisplay();
     } else if (tabName === 'progress') {
         updateProgressDisplay();
+    } else if (tabName === 'vocabulary') {
+        const activeTopicBtn = document.querySelector('.topic-btn.active');
+        const topic = activeTopicBtn ? activeTopicBtn.dataset.topic : 'animales';
+        renderVocabulary(topic);
     }
 }
 
@@ -199,6 +317,7 @@ function getIconForCategory(category) {
         ropa: '👕',
         naturaleza: '🌳',
         escuela: '🎒',
+        deportes: '⚽',
         varios: '⭐'
     };
     return map[category] || '⭐';
