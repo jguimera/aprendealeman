@@ -195,6 +195,21 @@ function setupEventListeners() {
         btn.addEventListener('click', () => switchVocabTopic(btn.dataset.topic));
     });
 
+    // Botones de modo matemáticas
+    document.querySelectorAll('.math-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchMathMode(btn.dataset.mode));
+    });
+
+    // Botones de categoría de frases
+    document.querySelectorAll('.phrase-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchPhraseCategory(btn.dataset.cat));
+    });
+
+    // Botones de modo de frases
+    document.querySelectorAll('.phrase-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchPhraseMode(btn.dataset.mode));
+    });
+
     // Controles de usuario
     const userSelect = document.getElementById('user-select');
     const addUserBtn = document.getElementById('add-user-btn');
@@ -244,6 +259,20 @@ function switchTab(tabName) {
         const activeTopicBtn = document.querySelector('.topic-btn.active');
         const topic = activeTopicBtn ? activeTopicBtn.dataset.topic : 'animales';
         renderVocabulary(topic);
+    } else if (tabName === 'math') {
+        const activeMathBtn = document.querySelector('.math-mode-btn.active');
+        const mode = activeMathBtn ? activeMathBtn.dataset.mode : 'numbers';
+        if (mode === 'numbers') renderNumbersGrid();
+        else generateMathProblem();
+    } else if (tabName === 'phrases') {
+        const activeCatBtn = document.querySelector('.phrase-cat-btn.active');
+        const cat = activeCatBtn ? activeCatBtn.dataset.cat : 'saludos';
+        const activeModeBtn = document.querySelector('.phrase-mode-btn.active');
+        const mode = activeModeBtn ? activeModeBtn.dataset.mode : 'learn';
+        phraseState.currentCategory = cat;
+        phraseState.mode = mode;
+        if (mode === 'learn') renderPhrasesList(cat);
+        else generatePhraseQuiz();
     }
 }
 
@@ -839,5 +868,353 @@ function saveProgressForUser(userName) {
         currentStreak: appState.currentStreak
     };
     localStorage.setItem(STORAGE.progressPrefix + userName, JSON.stringify(dataToSave));
+}
+
+// =============================================================
+// MATEMÁTICAS EN ALEMÁN
+// =============================================================
+
+const germanNumbers = [
+    { num: 0,  german: 'null',       emoji: '0️⃣' },
+    { num: 1,  german: 'eins',       emoji: '1️⃣' },
+    { num: 2,  german: 'zwei',       emoji: '2️⃣' },
+    { num: 3,  german: 'drei',       emoji: '3️⃣' },
+    { num: 4,  german: 'vier',       emoji: '4️⃣' },
+    { num: 5,  german: 'fünf',       emoji: '5️⃣' },
+    { num: 6,  german: 'sechs',      emoji: '6️⃣' },
+    { num: 7,  german: 'sieben',     emoji: '7️⃣' },
+    { num: 8,  german: 'acht',       emoji: '8️⃣' },
+    { num: 9,  german: 'neun',       emoji: '9️⃣' },
+    { num: 10, german: 'zehn',       emoji: '🔟' },
+    { num: 11, german: 'elf',        emoji: '1️⃣1️⃣' },
+    { num: 12, german: 'zwölf',      emoji: '1️⃣2️⃣' },
+    { num: 13, german: 'dreizehn',   emoji: '1️⃣3️⃣' },
+    { num: 14, german: 'vierzehn',   emoji: '1️⃣4️⃣' },
+    { num: 15, german: 'fünfzehn',   emoji: '1️⃣5️⃣' },
+    { num: 16, german: 'sechzehn',   emoji: '1️⃣6️⃣' },
+    { num: 17, german: 'siebzehn',   emoji: '1️⃣7️⃣' },
+    { num: 18, german: 'achtzehn',   emoji: '1️⃣8️⃣' },
+    { num: 19, german: 'neunzehn',   emoji: '1️⃣9️⃣' },
+    { num: 20, german: 'zwanzig',    emoji: '2️⃣0️⃣' }
+];
+
+let mathState = {
+    correct: 0,
+    total: 0,
+    currentProblem: null,
+    locked: false
+};
+
+function numToGerman(n) {
+    const entry = germanNumbers.find(x => x.num === n);
+    return entry ? entry.german : String(n);
+}
+
+function renderNumbersGrid() {
+    const grid = document.getElementById('numbers-grid');
+    if (!grid) return;
+    grid.innerHTML = germanNumbers.map(n => `
+        <div class="number-card">
+            <div class="number-digit">${n.num}</div>
+            <div class="number-german">${n.german}</div>
+            <button class="number-audio-btn" data-word="${n.german}" title="Escuchar pronunciación">🔊</button>
+        </div>
+    `).join('');
+    grid.querySelectorAll('.number-audio-btn').forEach(btn => {
+        btn.addEventListener('click', () => speakGerman(btn.dataset.word, btn));
+    });
+}
+
+function generateMathProblem() {
+    if (mathState.locked) return;
+    const ops = ['+', '-', '×'];
+    const op = ops[Math.floor(Math.random() * ops.length)];
+    let a, b, result;
+
+    if (op === '+') {
+        a = Math.floor(Math.random() * 10) + 1;
+        b = Math.floor(Math.random() * (20 - a)) + 1;
+        result = a + b;
+    } else if (op === '-') {
+        a = Math.floor(Math.random() * 15) + 5;
+        b = Math.floor(Math.random() * a) + 1;
+        result = a - b;
+    } else {
+        a = Math.floor(Math.random() * 4) + 1;
+        b = Math.floor(Math.random() * Math.floor(20 / a)) + 1;
+        result = a * b;
+    }
+
+    const opWord = op === '+' ? 'plus' : op === '-' ? 'minus' : 'mal';
+    mathState.currentProblem = { a, b, op, opWord, result };
+    mathState.locked = false;
+
+    document.getElementById('math-problem').textContent =
+        `${numToGerman(a)} ${opWord} ${numToGerman(b)} = ?`;
+
+    // Generate 4 unique options (correct + 3 wrong)
+    const wrongSet = new Set();
+    wrongSet.add(result);
+    while (wrongSet.size < 4) {
+        const delta = Math.floor(Math.random() * 6) - 3;
+        const wrong = result + delta;
+        if (wrong >= 0 && wrong <= 20 && wrong !== result) wrongSet.add(wrong);
+    }
+    const options = [...wrongSet].sort(() => Math.random() - 0.5);
+
+    const optionsEl = document.getElementById('math-options');
+    optionsEl.innerHTML = options.map(val => `
+        <button class="math-option-btn" data-value="${val}">${numToGerman(val)} (${val})</button>
+    `).join('');
+    optionsEl.querySelectorAll('.math-option-btn').forEach(btn => {
+        btn.addEventListener('click', () => checkMathAnswer(parseInt(btn.dataset.value, 10), btn));
+    });
+
+    const fb = document.getElementById('math-feedback');
+    fb.textContent = '';
+    fb.className = 'math-feedback';
+}
+
+function checkMathAnswer(value, btn) {
+    if (mathState.locked) return;
+    mathState.locked = true;
+    mathState.total++;
+    const correct = value === mathState.currentProblem.result;
+    if (correct) mathState.correct++;
+
+    document.getElementById('math-correct').textContent = mathState.correct;
+    document.getElementById('math-total').textContent = mathState.total;
+
+    document.querySelectorAll('.math-option-btn').forEach(b => {
+        b.classList.add('disabled');
+        if (parseInt(b.dataset.value, 10) === mathState.currentProblem.result) {
+            b.classList.add('correct');
+        }
+    });
+    if (!correct) btn.classList.add('incorrect');
+
+    const fb = document.getElementById('math-feedback');
+    if (correct) {
+        const msgs = ['¡Excelente! 🎉', '¡Muy bien! ⭐', '¡Correcto! ✨', '¡Genial! 🎯'];
+        fb.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+        fb.className = 'math-feedback show success';
+    } else {
+        fb.textContent = `La respuesta es "${numToGerman(mathState.currentProblem.result)}" (${mathState.currentProblem.result}) 📝`;
+        fb.className = 'math-feedback show error';
+    }
+
+    setTimeout(() => generateMathProblem(), correct ? 2000 : 3500);
+}
+
+function switchMathMode(mode) {
+    document.querySelectorAll('.math-mode-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`.math-mode-btn[data-mode="${mode}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    document.getElementById('math-numbers-mode').style.display = mode === 'numbers' ? '' : 'none';
+    document.getElementById('math-quiz-mode').style.display = mode === 'quiz' ? '' : 'none';
+    if (mode === 'quiz') generateMathProblem();
+}
+
+// =============================================================
+// FRASES EN ALEMÁN
+// =============================================================
+
+const phrasesDatabase = {
+    saludos: [
+        { german: 'Hallo!',                spanish: '¡Hola!',                   emoji: '👋' },
+        { german: 'Guten Morgen!',          spanish: '¡Buenos días!',            emoji: '🌅' },
+        { german: 'Guten Tag!',             spanish: '¡Buenas tardes!',          emoji: '☀️' },
+        { german: 'Guten Abend!',           spanish: '¡Buenas noches!',          emoji: '🌙' },
+        { german: 'Wie geht es dir?',       spanish: '¿Cómo estás?',             emoji: '😊' },
+        { german: 'Mir geht es gut.',       spanish: 'Estoy bien.',              emoji: '😄' },
+        { german: 'Auf Wiedersehen!',       spanish: '¡Hasta luego!',            emoji: '👋' },
+        { german: 'Tschüss!',              spanish: '¡Chao!',                   emoji: '✌️' },
+        { german: 'Bitte.',                 spanish: 'Por favor.',               emoji: '🙏' },
+        { german: 'Danke!',                 spanish: '¡Gracias!',                emoji: '💛' },
+        { german: 'Bitte sehr!',            spanish: '¡De nada!',               emoji: '😊' },
+        { german: 'Entschuldigung!',        spanish: '¡Perdona!',               emoji: '😅' }
+    ],
+    presentacion: [
+        { german: 'Ich heiße…',             spanish: 'Me llamo…',                emoji: '🙋' },
+        { german: 'Wie heißt du?',          spanish: '¿Cómo te llamas?',         emoji: '❓' },
+        { german: 'Ich bin … Jahre alt.',   spanish: 'Tengo … años.',            emoji: '🎂' },
+        { german: 'Wie alt bist du?',       spanish: '¿Cuántos años tienes?',    emoji: '❓' },
+        { german: 'Ich wohne in …',         spanish: 'Vivo en …',                emoji: '🏠' },
+        { german: 'Wo wohnst du?',          spanish: '¿Dónde vives?',            emoji: '🗺️' },
+        { german: 'Ich spreche Spanisch.',  spanish: 'Hablo español.',           emoji: '🇪🇸' },
+        { german: 'Ich lerne Deutsch.',     spanish: 'Aprendo alemán.',          emoji: '🇩🇪' },
+        { german: 'Mein Lieblingstier ist …', spanish: 'Mi animal favorito es …', emoji: '❤️' },
+        { german: 'Ich mag …',              spanish: 'Me gusta …',               emoji: '😍' }
+    ],
+    escuela: [
+        { german: 'Ich verstehe das nicht.', spanish: 'No entiendo esto.',        emoji: '😕' },
+        { german: 'Kannst du das wiederholen?', spanish: '¿Puedes repetir eso?', emoji: '🔁' },
+        { german: 'Ich habe eine Frage.',   spanish: 'Tengo una pregunta.',       emoji: '✋' },
+        { german: 'Das ist richtig!',       spanish: '¡Eso es correcto!',         emoji: '✅' },
+        { german: 'Das ist falsch.',        spanish: 'Eso es incorrecto.',        emoji: '❌' },
+        { german: 'Darf ich bitte raus?',   spanish: '¿Puedo salir, por favor?', emoji: '🚪' },
+        { german: 'Öffne das Buch!',        spanish: '¡Abre el libro!',           emoji: '📖' },
+        { german: 'Schreib das auf!',       spanish: '¡Escríbelo!',               emoji: '✏️' },
+        { german: 'Hör zu!',               spanish: '¡Escucha!',                emoji: '👂' },
+        { german: 'Sehr gut gemacht!',      spanish: '¡Muy bien hecho!',          emoji: '🌟' }
+    ],
+    colores: [
+        { german: 'Rot',    spanish: 'Rojo',     emoji: '🔴' },
+        { german: 'Blau',   spanish: 'Azul',     emoji: '🔵' },
+        { german: 'Grün',   spanish: 'Verde',    emoji: '🟢' },
+        { german: 'Gelb',   spanish: 'Amarillo', emoji: '🟡' },
+        { german: 'Orange', spanish: 'Naranja',  emoji: '🟠' },
+        { german: 'Lila',   spanish: 'Morado',   emoji: '🟣' },
+        { german: 'Weiß',   spanish: 'Blanco',   emoji: '⚪' },
+        { german: 'Schwarz', spanish: 'Negro',   emoji: '⚫' },
+        { german: 'Rosa',   spanish: 'Rosa',     emoji: '🌸' },
+        { german: 'Braun',  spanish: 'Marrón',   emoji: '🟤' },
+        { german: 'Grau',   spanish: 'Gris',     emoji: '🩶' }
+    ],
+    dias: [
+        { german: 'Montag',     spanish: 'Lunes',      emoji: '1️⃣' },
+        { german: 'Dienstag',   spanish: 'Martes',     emoji: '2️⃣' },
+        { german: 'Mittwoch',   spanish: 'Miércoles',  emoji: '3️⃣' },
+        { german: 'Donnerstag', spanish: 'Jueves',     emoji: '4️⃣' },
+        { german: 'Freitag',    spanish: 'Viernes',    emoji: '5️⃣' },
+        { german: 'Samstag',    spanish: 'Sábado',     emoji: '6️⃣' },
+        { german: 'Sonntag',    spanish: 'Domingo',    emoji: '7️⃣' },
+        { german: 'heute',      spanish: 'hoy',        emoji: '📅' },
+        { german: 'morgen',     spanish: 'mañana',     emoji: '⏭️' },
+        { german: 'gestern',    spanish: 'ayer',       emoji: '⏮️' }
+    ],
+    preguntas: [
+        { german: 'Wer ist das?',         spanish: '¿Quién es?',             emoji: '👤' },
+        { german: 'Was ist das?',          spanish: '¿Qué es esto?',          emoji: '❓' },
+        { german: 'Wo ist …?',             spanish: '¿Dónde está …?',         emoji: '🗺️' },
+        { german: 'Wie viel kostet das?',  spanish: '¿Cuánto cuesta?',        emoji: '💶' },
+        { german: 'Was möchtest du?',      spanish: '¿Qué quieres?',          emoji: '🤔' },
+        { german: 'Warum?',                spanish: '¿Por qué?',              emoji: '🤷' },
+        { german: 'Wann?',                 spanish: '¿Cuándo?',               emoji: '⏰' },
+        { german: 'Wie?',                  spanish: '¿Cómo?',                 emoji: '🔄' },
+        { german: 'Kannst du mir helfen?', spanish: '¿Puedes ayudarme?',     emoji: '🤝' },
+        { german: 'Ich weiß nicht.',       spanish: 'No lo sé.',              emoji: '🤷' }
+    ]
+};
+
+let phraseState = {
+    correct: 0,
+    total: 0,
+    currentCategory: 'saludos',
+    currentPhrase: null,
+    locked: false,
+    mode: 'learn'
+};
+
+function renderPhrasesList(category) {
+    const list = document.getElementById('phrases-list');
+    if (!list) return;
+    const phrases = phrasesDatabase[category] || [];
+    if (phrases.length === 0) {
+        list.innerHTML = '<p class="vocab-empty">No hay frases en esta categoría todavía.</p>';
+        return;
+    }
+    list.innerHTML = phrases.map(p => `
+        <div class="phrase-card">
+            <div class="phrase-emoji" aria-hidden="true">${p.emoji}</div>
+            <div class="phrase-german">${p.german}</div>
+            <div class="phrase-spanish">${p.spanish}</div>
+            <button class="phrase-audio-btn" data-word="${p.german}" title="Escuchar pronunciación">🔊</button>
+        </div>
+    `).join('');
+    list.querySelectorAll('.phrase-audio-btn').forEach(btn => {
+        btn.addEventListener('click', () => speakGerman(btn.dataset.word, btn));
+    });
+}
+
+function generatePhraseQuiz() {
+    if (phraseState.locked) return;
+    const phrases = phrasesDatabase[phraseState.currentCategory] || [];
+    if (phrases.length < 4) return;
+
+    phraseState.locked = false;
+    const correctIdx = Math.floor(Math.random() * phrases.length);
+    phraseState.currentPhrase = phrases[correctIdx];
+
+    // Show Spanish; ask to pick German
+    document.getElementById('phrase-question').textContent = phraseState.currentPhrase.spanish + ' ' + phraseState.currentPhrase.emoji;
+
+    // 4 options: correct + 3 random wrong
+    const wrongSet = new Set([correctIdx]);
+    while (wrongSet.size < 4) {
+        wrongSet.add(Math.floor(Math.random() * phrases.length));
+    }
+    const optionIndices = [...wrongSet].sort(() => Math.random() - 0.5);
+    const optionsEl = document.getElementById('phrase-options');
+    optionsEl.innerHTML = optionIndices.map(idx => `
+        <button class="phrase-option-btn" data-idx="${idx}">${phrases[idx].german}</button>
+    `).join('');
+    optionsEl.querySelectorAll('.phrase-option-btn').forEach(btn => {
+        btn.addEventListener('click', () => checkPhraseAnswer(parseInt(btn.dataset.idx, 10), btn));
+    });
+
+    const fb = document.getElementById('phrase-feedback');
+    fb.textContent = '';
+    fb.className = 'phrase-feedback';
+}
+
+function checkPhraseAnswer(idx, btn) {
+    if (phraseState.locked) return;
+    phraseState.locked = true;
+    const phrases = phrasesDatabase[phraseState.currentCategory] || [];
+    const correctPhrase = phraseState.currentPhrase;
+    const correctIdx = phrases.indexOf(correctPhrase);
+    const isCorrect = idx === correctIdx;
+
+    phraseState.total++;
+    if (isCorrect) phraseState.correct++;
+    document.getElementById('phrase-correct').textContent = phraseState.correct;
+    document.getElementById('phrase-total').textContent = phraseState.total;
+
+    document.querySelectorAll('.phrase-option-btn').forEach(b => {
+        b.classList.add('disabled');
+        if (parseInt(b.dataset.idx, 10) === correctIdx) b.classList.add('correct');
+    });
+    if (!isCorrect) btn.classList.add('incorrect');
+
+    const fb = document.getElementById('phrase-feedback');
+    if (isCorrect) {
+        const msgs = ['¡Excelente! 🎉', '¡Muy bien! ⭐', '¡Correcto! ✨', '¡Genial! 🎯'];
+        fb.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+        fb.className = 'phrase-feedback show success';
+    } else {
+        fb.textContent = `La respuesta es: "${correctPhrase.german}" 📝`;
+        fb.className = 'phrase-feedback show error';
+    }
+
+    setTimeout(() => generatePhraseQuiz(), isCorrect ? 2000 : 3500);
+}
+
+function switchPhraseCategory(category) {
+    phraseState.currentCategory = category;
+    phraseState.locked = false;
+    document.querySelectorAll('.phrase-cat-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`.phrase-cat-btn[data-cat="${category}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    if (phraseState.mode === 'learn') {
+        renderPhrasesList(category);
+    } else {
+        generatePhraseQuiz();
+    }
+}
+
+function switchPhraseMode(mode) {
+    phraseState.mode = mode;
+    phraseState.locked = false;
+    document.querySelectorAll('.phrase-mode-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`.phrase-mode-btn[data-mode="${mode}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    document.getElementById('phrase-learn-mode').style.display = mode === 'learn' ? '' : 'none';
+    document.getElementById('phrase-practice-mode').style.display = mode === 'practice' ? '' : 'none';
+    if (mode === 'learn') {
+        renderPhrasesList(phraseState.currentCategory);
+    } else {
+        generatePhraseQuiz();
+    }
 }
 

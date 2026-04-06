@@ -28,6 +28,8 @@
         <nav class="nav-tabs">
             <button class="nav-btn active" data-tab="practice">🎯 Practicar</button>
             <button class="nav-btn" data-tab="vocabulary">📚 Vocabulario</button>
+            <button class="nav-btn" data-tab="math">🔢 Matemáticas</button>
+            <button class="nav-btn" data-tab="phrases">💬 Frases</button>
             <button class="nav-btn" data-tab="stats">📊 Estadísticas</button>
             <button class="nav-btn" data-tab="progress">🏆 Progreso</button>
             <button class="nav-btn" data-tab="help">❓ Ayuda</button>
@@ -102,6 +104,75 @@
             </div>
 
             <div class="vocab-grid" id="vocab-grid"></div>
+        </section>
+
+        <!-- Sección de Matemáticas -->
+        <section id="math" class="tab-content">
+            <h2>🔢 Matemáticas en Alemán</h2>
+            <p class="vocab-subtitle">Aprende los números y practica operaciones matemáticas en alemán</p>
+
+            <div class="math-mode-selector">
+                <button class="math-mode-btn active" data-mode="numbers">🔢 Números</button>
+                <button class="math-mode-btn" data-mode="quiz">🧮 Cálculo</button>
+            </div>
+
+            <!-- Modo Números -->
+            <div id="math-numbers-mode" class="math-mode-content">
+                <div class="numbers-grid" id="numbers-grid"></div>
+            </div>
+
+            <!-- Modo Cálculo -->
+            <div id="math-quiz-mode" class="math-mode-content" style="display:none">
+                <div class="math-quiz-card">
+                    <p class="math-instruction">¿Cuánto es…?</p>
+                    <div class="math-problem" id="math-problem"></div>
+                    <div class="math-options" id="math-options"></div>
+                    <div class="math-feedback" id="math-feedback"></div>
+                </div>
+                <div class="math-score">
+                    <span>✅ Correctas: <span id="math-correct">0</span></span>
+                    <span>📝 Total: <span id="math-total">0</span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Frases -->
+        <section id="phrases" class="tab-content">
+            <h2>💬 Frases en Alemán</h2>
+            <p class="vocab-subtitle">Aprende expresiones y frases cotidianas en alemán</p>
+
+            <div class="phrase-categories">
+                <button class="phrase-cat-btn active" data-cat="saludos">👋 Saludos</button>
+                <button class="phrase-cat-btn" data-cat="presentacion">🙋 Presentación</button>
+                <button class="phrase-cat-btn" data-cat="escuela">🏫 Escuela</button>
+                <button class="phrase-cat-btn" data-cat="colores">🌈 Colores</button>
+                <button class="phrase-cat-btn" data-cat="dias">📅 Días</button>
+                <button class="phrase-cat-btn" data-cat="preguntas">❓ Preguntas</button>
+            </div>
+
+            <div class="phrase-mode-selector">
+                <button class="phrase-mode-btn active" data-mode="learn">📖 Aprender</button>
+                <button class="phrase-mode-btn" data-mode="practice">🎯 Practicar</button>
+            </div>
+
+            <!-- Modo Aprender -->
+            <div id="phrase-learn-mode" class="phrase-mode-content">
+                <div class="phrases-list" id="phrases-list"></div>
+            </div>
+
+            <!-- Modo Practicar -->
+            <div id="phrase-practice-mode" class="phrase-mode-content" style="display:none">
+                <div class="phrase-quiz-card">
+                    <p class="phrase-instruction">Selecciona la traducción correcta al alemán</p>
+                    <div class="phrase-question" id="phrase-question"></div>
+                    <div class="phrase-options" id="phrase-options"></div>
+                    <div class="phrase-feedback" id="phrase-feedback"></div>
+                </div>
+                <div class="phrase-score">
+                    <span>✅ Correctas: <span id="phrase-correct">0</span></span>
+                    <span>📝 Total: <span id="phrase-total">0</span></span>
+                </div>
+            </div>
         </section>
 
         <!-- Sección de Estadísticas -->
@@ -232,6 +303,22 @@
                 <li>Puedes crear y cambiar de usuario en la parte superior.</li>
                 <li>Puedes reiniciar el progreso de un usuario con el botón “Reiniciar”.</li>
                 <li>Atajos de teclado: 1 = der, 2 = die, 3 = das.</li>
+            </ul>
+        </div>
+
+        <div class="gender-breakdown">
+            <h3>🔢 Matemáticas en alemán</h3>
+            <ul>
+                <li><strong>Números</strong>: explora los números del 0 al 20 con su escritura alemana y escucha su pronunciación.</li>
+                <li><strong>Cálculo</strong>: resuelve operaciones (suma, resta, multiplicación) y elige el resultado en alemán.</li>
+            </ul>
+        </div>
+
+        <div class="gender-breakdown">
+            <h3>💬 Frases en alemán</h3>
+            <ul>
+                <li><strong>Aprender</strong>: consulta frases por categoría (Saludos, Presentación, Escuela, Colores, Días, Preguntas) con traducción y pronunciación.</li>
+                <li><strong>Practicar</strong>: lee la frase en español y elige la traducción correcta en alemán entre cuatro opciones.</li>
             </ul>
             <p>¡Diviértete y aprende! 🇩🇪✨</p>
         </div>
