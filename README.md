@@ -79,6 +79,9 @@ Estados de palabras y progresión:
   - Estadísticas (correctas/total)
   - Nivel de maestría
 
+### 📖 Sección de Español (Lengua)
+Pestaña "Español" basada en el cuaderno *El caso del gorro perdido*: 8 pistas (sinónimos y antónimos, ortografía K/G, la oración, comunicación, señales, carteles, presentación y lectura) más un mini examen. Ejercicios interactivos con corrección automática (elegir, completar, clasificar, ordenar, sujeto/predicado), actividades abiertas y dictados con texto de ayuda. El progreso por usuario se guarda en `localStorage`. Código en `lengua.js`.
+
 ### 🎨 Interfaz Amigable para Niños
 - **Diseño colorido y moderno** con gradientes atractivos
 - **Animaciones suaves** que hacen la experiencia más dinámica
