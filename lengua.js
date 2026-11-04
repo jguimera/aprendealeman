@@ -182,6 +182,14 @@ function renderLenguaMenu() {
         grid.appendChild(card);
     });
     root.appendChild(grid);
+    const reset = lEl('button', 'lengua-reset', '🗑️ Reiniciar progreso de Español');
+    reset.addEventListener('click', () => {
+        if (!confirm('¿Seguro que quieres borrar el progreso de Español de este usuario?')) return;
+        lenguaState.progress = {};
+        localStorage.removeItem(LENGUA_STORAGE + lenguaUser());
+        renderLenguaMenu();
+    });
+    root.appendChild(reset);
 }
 
 function renderPista(p) {
