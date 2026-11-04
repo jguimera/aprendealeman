@@ -2,11 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Der Die Das</title>
         <link rel="icon" type="image/svg+xml" href="favicon.svg">
         <link rel="alternate icon" href="favicon.svg">
+    <meta name="theme-color" content="#4f46e5">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme.css">
 </head>
 <body>
     <div class="container">
@@ -19,21 +21,26 @@
             <div class="user-row">
                 <label for="user-select">👤 Usuario:</label>
                 <select id="user-select"></select>
-                <input type="text" id="new-user-name" placeholder="Nuevo usuario" aria-label="Nuevo usuario" />
-                <button id="add-user-btn">Añadir</button>
-                <button id="reset-user-btn" class="danger">Reiniciar</button>
             </div>
+            <details class="user-manage">
+                <summary>⚙️ Gestionar usuarios</summary>
+                <div class="user-row">
+                    <input type="text" id="new-user-name" placeholder="Nuevo usuario" aria-label="Nuevo usuario" />
+                    <button id="add-user-btn">Añadir</button>
+                    <button id="reset-user-btn" class="danger">Reiniciar</button>
+                </div>
+            </details>
         </div>
 
         <nav class="nav-tabs">
-            <button class="nav-btn active" data-tab="practice">🎯 Practicar</button>
-            <button class="nav-btn" data-tab="vocabulary">📚 Vocabulario</button>
-            <button class="nav-btn" data-tab="math">🔢 Matemáticas</button>
-            <button class="nav-btn" data-tab="phrases">💬 Frases</button>
-            <button class="nav-btn" data-tab="lengua">📖 Español</button>
-            <button class="nav-btn" data-tab="stats">📊 Estadísticas</button>
-            <button class="nav-btn" data-tab="progress">🏆 Progreso</button>
-            <button class="nav-btn" data-tab="help">❓ Ayuda</button>
+            <button class="nav-btn active" data-tab="practice"><span class="nav-ico">🎯</span><span class="nav-lbl">Practicar</span></button>
+            <button class="nav-btn" data-tab="vocabulary"><span class="nav-ico">📚</span><span class="nav-lbl">Vocabulario</span></button>
+            <button class="nav-btn" data-tab="math"><span class="nav-ico">🔢</span><span class="nav-lbl">Mates</span></button>
+            <button class="nav-btn" data-tab="phrases"><span class="nav-ico">💬</span><span class="nav-lbl">Frases</span></button>
+            <button class="nav-btn" data-tab="lengua"><span class="nav-ico">📖</span><span class="nav-lbl">Español</span></button>
+            <button class="nav-btn" data-tab="stats"><span class="nav-ico">📊</span><span class="nav-lbl">Stats</span></button>
+            <button class="nav-btn" data-tab="progress"><span class="nav-ico">🏆</span><span class="nav-lbl">Progreso</span></button>
+            <button class="nav-btn" data-tab="help"><span class="nav-ico">❓</span><span class="nav-lbl">Ayuda</span></button>
         </nav>
 
         <!-- Sección de Práctica -->
