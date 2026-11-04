@@ -1370,3 +1370,5 @@ header h1 {
         display: none;
     }
 }
+
+.lengua-reset { display: block; margin: 20px auto 0; padding: 8px 16px; border: none; border-radius: 10px; background: var(--error-color); color: #fff; font: inherit; cursor: pointer; }

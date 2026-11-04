@@ -1,0 +1,354 @@
+/* Tema moderno, pensado primero para móvil. Se carga después de styles.css. */
+:root {
+    --primary-color: #4f46e5;
+    --secondary-color: #7c3aed;
+    --radius: 20px;
+    --tap: 52px;
+    --nav-h: 68px;
+}
+
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: #f1f5f9;
+    background-image: linear-gradient(180deg, #4f46e5 0, #7c3aed 220px, #f1f5f9 221px);
+    background-repeat: no-repeat;
+    padding: 16px 16px calc(var(--nav-h) + 24px + env(safe-area-inset-bottom));
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+header {
+    margin-bottom: 14px;
+}
+
+header h1 {
+    font-size: 1.9em;
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    font-size: 1em;
+}
+
+button,
+select,
+input,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #a5b4fc;
+    outline-offset: 2px;
+}
+
+/* Tarjetas */
+.user-controls,
+.level-indicator,
+.quiz-card,
+.stat-card,
+.gender-breakdown,
+.math-quiz-card,
+.phrase-quiz-card,
+.lengua-ex,
+.lengua-card {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: 0 8px 24px -8px rgba(30, 41, 59, 0.18);
+}
+
+.user-controls {
+    padding: 10px 12px;
+}
+
+.user-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+    align-items: center;
+}
+
+.user-manage {
+    margin-top: 8px;
+}
+
+.user-manage summary {
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 0.9em;
+    padding: 6px 0;
+}
+
+.user-manage .user-row {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 6px;
+}
+
+.user-manage #new-user-name {
+    grid-column: 1 / -1;
+}
+
+#user-select,
+#new-user-name {
+    font-size: 16px;
+    min-height: 44px;
+}
+
+#add-user-btn,
+#reset-user-btn {
+    min-height: 44px;
+}
+
+/* Navegación */
+.nav-tabs {
+    gap: 6px;
+    padding: 6px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.18);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.nav-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: 72px;
+    padding: 8px 6px;
+    border-radius: 14px;
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+.nav-ico {
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.nav-btn:hover {
+    transform: none;
+}
+
+/* Práctica */
+.quiz-card {
+    padding: 28px 18px;
+}
+
+.gender-options {
+    gap: 10px;
+}
+
+.gender-btn {
+    min-height: 96px;
+    padding: 14px 6px;
+    border-radius: 18px;
+    align-items: center;
+    justify-content: center;
+}
+
+.gender-btn:hover {
+    transform: none;
+}
+
+.gender-btn:active {
+    transform: scale(0.95);
+}
+
+.session-stats {
+    gap: 10px;
+}
+
+.lengua-check,
+.lengua-opt,
+.math-option-btn,
+.phrase-option-btn,
+.topic-btn,
+.phrase-cat-btn,
+.math-mode-btn,
+.phrase-mode-btn,
+.filter-btn {
+    min-height: 44px;
+}
+
+.lengua-input,
+.lengua-textarea,
+.lengua-opt {
+    font-size: 16px;
+}
+
+/* Español */
+.lengua-theory {
+    border-radius: 14px;
+    font-size: 1.02em;
+}
+
+.lengua-check {
+    width: 100%;
+    min-height: var(--tap);
+    font-size: 1.05em;
+    border-radius: 14px;
+}
+
+.lengua-back {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: inline-block;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px -4px rgba(30, 41, 59, 0.25);
+    font-weight: 700;
+}
+
+.lengua-opt {
+    border-radius: 14px;
+    padding: 10px 16px;
+}
+
+.lengua-input {
+    flex: 1;
+    min-width: 140px;
+    min-height: 44px;
+}
+
+.lengua-menu {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.lengua-card {
+    padding: 18px 10px;
+}
+
+.lengua-card:active {
+    transform: scale(0.97);
+}
+
+/* Pestañas de contenido */
+.tab-content > h2 {
+    font-size: 1.4em;
+    color: var(--text-color);
+    margin: 4px 0;
+}
+
+.vocab-subtitle {
+    color: var(--text-light);
+    margin-bottom: 14px;
+}
+
+#help {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+#help > h2 {
+    color: var(--text-color);
+}
+
+/* Móvil: barra de pestañas inferior */
+@media (max-width: 768px) {
+    .nav-tabs {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        margin: 0;
+        height: calc(var(--nav-h) + env(safe-area-inset-bottom));
+        padding: 6px 6px calc(6px + env(safe-area-inset-bottom));
+        flex-direction: row;
+        border-radius: 20px 20px 0 0;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 -6px 24px -8px rgba(30, 41, 59, 0.3);
+        backdrop-filter: blur(12px);
+    }
+
+    .nav-btn {
+        flex: 1 0 auto;
+        background: transparent;
+        color: var(--text-light);
+        box-shadow: none;
+    }
+
+    .nav-btn.active {
+        background: #eef2ff;
+        color: var(--primary-color);
+        box-shadow: none;
+    }
+
+    .gender-options {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .article {
+        font-size: 1.6em;
+    }
+
+    .gender-label {
+        font-size: 0.75em;
+    }
+
+    .session-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .word-display h2 {
+        font-size: 2.2em;
+    }
+}
+
+@media (min-width: 769px) {
+    .nav-btn {
+        flex-direction: row;
+        gap: 8px;
+        font-size: 0.95em;
+    }
+
+    .nav-ico {
+        font-size: 1.2em;
+    }
+
+    body {
+        padding-bottom: 24px;
+    }
+
+    .lengua-menu {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .lengua-check {
+        width: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
