@@ -168,6 +168,7 @@ function lenguaPercent(p) {
 function renderLenguaMenu() {
     const root = document.getElementById('lengua-root');
     lenguaState.current = null;
+    document.body.classList.remove('lengua-focus');
     root.innerHTML = '';
     const grid = lEl('div', 'lengua-menu');
     LENGUA_PISTAS.forEach((p, i) => {
@@ -194,6 +195,8 @@ function renderLenguaMenu() {
 
 function renderPista(p) {
     lenguaState.current = p.id;
+    document.body.classList.add('lengua-focus');
+    window.scrollTo(0, 0);
     const root = document.getElementById('lengua-root');
     root.innerHTML = '';
     const back = lEl('button', 'lengua-back', '⬅ Volver a las pistas');
@@ -346,6 +349,10 @@ function renderExercise(p, ex, idx) {
     return card;
 }
 
+function leaveLengua() {
+    document.body.classList.remove('lengua-focus');
+}
+
 function initLengua() {
     lenguaLoad();
     renderLenguaMenu();
@@ -353,4 +360,5 @@ function initLengua() {
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('[data-tab="lengua"]').addEventListener('click', initLengua);
+    document.querySelectorAll('.nav-btn:not([data-tab="lengua"])').forEach(b => b.addEventListener('click', leaveLengua));
 });

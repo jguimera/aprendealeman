@@ -1363,4 +1363,12 @@ header h1 {
 .lengua-model { margin-top: 8px; padding: 10px 14px; background: #fefce8; border-radius: 10px; }
 .lengua-hint { font-size: 0.85rem; color: var(--text-light); }
 
+@media (max-width: 768px) {
+    body.lengua-focus header,
+    body.lengua-focus .user-controls,
+    body.lengua-focus .nav-tabs {
+        display: none;
+    }
+}
+
 .lengua-reset { display: block; margin: 20px auto 0; padding: 8px 16px; border: none; border-radius: 10px; background: var(--error-color); color: #fff; font: inherit; cursor: pointer; }
